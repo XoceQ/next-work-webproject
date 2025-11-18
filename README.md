@@ -1,0 +1,1 @@
+Este pequeño proyecto incluye un mensaje en consola para confirmar que los cambios realizados en el repositorio local se están enviando correctamente al repositorio remoto en GitHub.
