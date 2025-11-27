@@ -17,10 +17,8 @@ phases:
       - echo Build completed on `date`
       - export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain nextwork --domain-owner 228183784570 --region us-west-2 --query authorizationToken --output text)
       - mvn -s settings.xml package
-
 artifacts:
   files:
-    - target/next-work-webproject.war
-
+    - target/nextwork-web-roject-v2.war
   discard-paths: no
 
