@@ -19,6 +19,6 @@ phases:
       - mvn -s settings.xml package
 artifacts:
   files:
-    - target/next-work-webproject.war
+    - target/next-devops-cicd.war
   discard-paths: no
 
