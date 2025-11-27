@@ -4,20 +4,28 @@ phases:
   install:
     runtime-versions:
       java: corretto8
+    commands:
+      - echo "Configuring environment..."
+      - export AWS_REGION=us-west-2
+      - export AWS_DEFAULT_REGION=us-west-2
+      - aws sts get-caller-identity
+
   pre_build:
     commands:
-      - echo Logging in to AWS CodeArtifact...
-      - CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain nextwork --domain-owner 228183784570 --region us-west-2 --query authorizationToken --output text`
-      - export CODEARTIFACT_AUTH_TOKEN
+      - echo "Logging into CodeArtifact..."
+      - export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain nextwork --domain-owner 228183784570 --region us-west-2 --query authorizationToken --output text)
+      - echo "Token received."
+
   build:
     commands:
       - echo Build started on `date`
       - mvn clean install -s settings.xml
+
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Packaging artifacts...
       - mvn package -s settings.xml
+
 artifacts:
   files:
     - target/*.war
