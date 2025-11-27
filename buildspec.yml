@@ -20,6 +20,6 @@ phases:
 
 artifacts:
   files:
-    - target/nextwork-web-project-v2.war
+    - target/next-devops-cicd.war
   discard-paths: no
 
