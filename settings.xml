@@ -1,31 +1,51 @@
-<settings>
-<servers>
-  <server>
-    <id>jrlabs-next-cicd-devops</id>
-    <username>aws</username>
-    <password>${env.CODEARTIFACT_AUTH_TOKEN}</password>
-  </server>
-</servers>
-<profiles>
-  <profile>
-    <id>jrlabs-next-cicd-devops</id>
-    <activation>
-      <activeByDefault>true</activeByDefault>
-    </activation>
-    <repositories>
-      <repository>
-        <id>jrlabs-next-cicd-devops</id>
-        <url>https://jrlabs-228183784570.d.codeartifact.us-west-2.amazonaws.com/maven/next-cicd-devops/</url>
-      </repository>
-    </repositories>
-  </profile>
-</profiles>
-<mirrors>
-  <mirror>
-    <id>jrlabs-next-cicd-devops</id>
-    <name>jrlabs-next-cicd-devops</name>
-    <url>https://jrlabs-228183784570.d.codeartifact.us-west-2.amazonaws.com/maven/next-cicd-devops/</url>
-    <mirrorOf>*</mirrorOf>
-  </mirror>
-</mirrors>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+          https://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+  <!-- Servidores (usa el token de CodeArtifact) -->
+  <servers>
+    <server>
+      <id>jrlabs-maven-central-store</id>
+      <username>aws</username>
+      <password>${env.CODEARTIFACT_AUTH_TOKEN}</password>
+    </server>
+  </servers>
+
+  <!-- Perfil que activa CodeArtifact como repositorio -->
+  <profiles>
+    <profile>
+      <id>jrlabs-maven-central-store</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+
+      <repositories>
+        <repository>
+          <id>jrlabs-maven-central-store</id>
+          <url>https://jrlabs-228183784570.d.codeartifact.us-west-2.amazonaws.com/maven/maven-central-store/</url>
+        </repository>
+      </repositories>
+
+      <pluginRepositories>
+        <pluginRepository>
+          <id>jrlabs-maven-central-store</id>
+          <url>https://jrlabs-228183784570.d.codeartifact.us-west-2.amazonaws.com/maven/maven-central-store/</url>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+
+  <!-- Mirror corregido -->
+  <!-- IMPORTANTE: NO usar * porque bloquea Maven Central -->
+  <mirrors>
+    <mirror>
+      <id>jrlabs-maven-central-store</id>
+      <name>CodeArtifact Mirror</name>
+      <!-- Permitimos TODO excepto plugins de Maven Central -->
+      <mirrorOf>*,!central</mirrorOf>
+      <url>https://jrlabs-228183784570.d.codeartifact.us-west-2.amazonaws.com/maven/maven-central-store/</url>
+    </mirror>
+  </mirrors>
+
 </settings>
